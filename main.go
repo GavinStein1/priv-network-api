@@ -93,21 +93,21 @@ func main() {
 		return
 	}
 	
-	doc := temp[0]
-	var docMap map[string]interface{}
-	docMap = make(map[string]interface{})
+	// doc := temp[0]
+	// var docMap map[string]interface{}
+	// docMap = make(map[string]interface{})
 	
-	docMap["_id"] = doc.ID
-	docMap["title"] = doc.Title
-	docMap["artist"] = doc.Artist
-	docMap["album"] = doc.Album
+	// docMap["_id"] = doc.ID
+	// docMap["title"] = doc.Title
+	// docMap["artist"] = doc.Artist
+	// docMap["album"] = doc.Album
 
-	op, err := store.Put(ctx, docMap)
-	if err != nil {
-		return
-	}
+	// op, err := store.Put(ctx, docMap)
+	// if err != nil {
+	// 	return
+	// }
 
-	fmt.Println(op.GetEntry())
+	// fmt.Println(op.GetEntry())
 
 	// cid := op.GetEntry().GetHash()
 	// client.Pin()
