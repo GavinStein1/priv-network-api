@@ -36,5 +36,8 @@ func InitDB() error {
 	}
 
 	fmt.Println(store.Address())
+	for true {
+		
+	}
 	return nil	
 }
