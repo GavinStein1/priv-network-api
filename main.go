@@ -74,24 +74,29 @@ func getAll(doc interface{}) (bool, error) {
 }
 
 func main() {
-	client, err := CreateIPFSNode()
-	if checkErr(err) {
+	err := InitDB()
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
+	// client, err := CreateIPFSNode()
+	// if checkErr(err) {
+	// 	return
+	// }
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	// ctx, cancel := context.WithCancel(context.Background())
+	// defer cancel()
 
-	// var db *orbitdb.OrbitDB
-	db, err := CreateDBInstance(ctx, client)
-	if checkErr(err) {
-		return
-	}
+	// // var db *orbitdb.OrbitDB
+	// db, err := CreateDBInstance(ctx, client)
+	// if checkErr(err) {
+	// 	return
+	// }
 
-	store, err := ConnectToDocStore(ctx, db, "/orbitdb/bafyreiajnlkjrqxhyxjnzg3wljvskqvpnrvhivztiyoonqinm2i2kxsdv4/pieces")
-	if checkErr(err) {
-		return
-	}
+	// store, err := ConnectToDocStore(ctx, db, "/orbitdb/bafyreiajnlkjrqxhyxjnzg3wljvskqvpnrvhivztiyoonqinm2i2kxsdv4/pieces")
+	// if checkErr(err) {
+	// 	return
+	// }
 	
 	// doc := temp[0]
 	// var docMap map[string]interface{}
@@ -112,11 +117,11 @@ func main() {
 	// cid := op.GetEntry().GetHash()
 	// client.Pin()
 
-	results, err := store.Query(ctx, getAll)
-	if checkErr(err) {
-		return
-	}
-	fmt.Println(results)
+	// results, err := store.Query(ctx, getAll)
+	// if checkErr(err) {
+	// 	return
+	// }
+	// fmt.Println(results)
 
 
 
