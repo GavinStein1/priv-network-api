@@ -40,7 +40,7 @@ func getPins(c *gin.Context) {
         fmt.Println(err)
     }
 
-	fmt.Println(out)
+	fmt.Println(out.String())
 
 	c.IndentedJSON(http.StatusOK, temp)
 }
