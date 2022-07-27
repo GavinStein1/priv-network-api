@@ -30,7 +30,7 @@ func main() {
 }
 
 func getPins(c *gin.Context) {
-	getPinsCmd := exec.Command("echo $PATH")
+	getPinsCmd := exec.Command("bash", "echo $PATH")
 	var out bytes.Buffer
     getPinsCmd.Stdout = &out
 
