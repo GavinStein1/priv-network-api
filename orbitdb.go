@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"context"
 	"net/http"
+	"errors"
 
 	ipfsClient "github.com/ipfs/go-ipfs-http-client"
 	orbitdb "berty.tech/go-orbit-db"
@@ -37,7 +38,22 @@ func InitDB() error {
 
 	fmt.Println(store.Address())
 	for true {
-		
+
 	}
 	return nil	
+}
+
+func ConnectToDB(address string, db orbitdb.OrbitDB, ctx context.Context) (orbitdb.DocumentStore, error) {
+	options := orbitdb.CreateDBOptions{}
+	ac := &accesscontroller.CreateAccessControllerOptions{Access: map[string][]string{"write": {"*"}}}
+	options.AccessController = ac
+	store, err := db.Docs(ctx, address, &options)
+	if err != nil {
+		return nil, err
+	}
+
+	if store.Address().String() != "/orbitdb/bafyreidslmv4pgy4x3d6rtwigc3jtdk3eggabagomuwxc7cqin4jb5ktjy/kawa" {
+		return nil, errors.New("address doesn't match...")
+	}
+	return store, nil
 }

@@ -74,54 +74,50 @@ func getAll(doc interface{}) (bool, error) {
 }
 
 func main() {
-	err := InitDB()
+	client, err := CreateIPFSNode()
+	if checkErr(err) {
+		return
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// var db *orbitdb.OrbitDB
+	db, err := CreateDBInstance(ctx, client)
+	if checkErr(err) {
+		return
+	}
+
+	store, err := ConnectToDB("/orbitdb/bafyreidslmv4pgy4x3d6rtwigc3jtdk3eggabagomuwxc7cqin4jb5ktjy/kawa", db, ctx)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// client, err := CreateIPFSNode()
-	// if checkErr(err) {
-	// 	return
-	// }
-
-	// ctx, cancel := context.WithCancel(context.Background())
-	// defer cancel()
-
-	// // var db *orbitdb.OrbitDB
-	// db, err := CreateDBInstance(ctx, client)
-	// if checkErr(err) {
-	// 	return
-	// }
-
-	// store, err := ConnectToDocStore(ctx, db, "/orbitdb/bafyreiajnlkjrqxhyxjnzg3wljvskqvpnrvhivztiyoonqinm2i2kxsdv4/pieces")
-	// if checkErr(err) {
-	// 	return
-	// }
 	
-	// doc := temp[0]
-	// var docMap map[string]interface{}
-	// docMap = make(map[string]interface{})
+	doc := temp[0]
+	var docMap map[string]interface{}
+	docMap = make(map[string]interface{})
 	
-	// docMap["_id"] = doc.ID
-	// docMap["title"] = doc.Title
-	// docMap["artist"] = doc.Artist
-	// docMap["album"] = doc.Album
+	docMap["_id"] = doc.ID
+	docMap["title"] = doc.Title
+	docMap["artist"] = doc.Artist
+	docMap["album"] = doc.Album
 
-	// op, err := store.Put(ctx, docMap)
-	// if err != nil {
-	// 	return
-	// }
+	op, err := store.Put(ctx, docMap)
+	if err != nil {
+		return
+	}
 
-	// fmt.Println(op.GetEntry())
+	fmt.Println(op.GetEntry())
 
 	// cid := op.GetEntry().GetHash()
 	// client.Pin()
 
-	// results, err := store.Query(ctx, getAll)
-	// if checkErr(err) {
-	// 	return
-	// }
-	// fmt.Println(results)
+	results, err := store.Query(ctx, getAll)
+	if checkErr(err) {
+		return
+	}
+	fmt.Println(results)
 
 
 
