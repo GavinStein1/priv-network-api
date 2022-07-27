@@ -17,6 +17,10 @@ type Temp struct {
     Album  string  `json:"album"`
 }
 
+type StdOut struct {
+	Out    string  `json:"out"`
+}
+
 var temp = []Temp{
 	{ID: "1", Title: "Go", Artist: "Flume", Album: "Palaces"},
 }
@@ -36,13 +40,13 @@ func getPins(c *gin.Context) {
 
 	err := getPinsCmd.Run()
 
+	stdout := StdOut{out.String()}
+
     if err != nil {
         fmt.Println(err)
     }
 
-	fmt.Println(out.String())
-
-	c.IndentedJSON(http.StatusOK, temp)
+	c.IndentedJSON(http.StatusOK, stdout)
 }
 
 // func postSong()
