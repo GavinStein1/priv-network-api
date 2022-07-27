@@ -74,7 +74,7 @@ func getAll(doc interface{}) (bool, error) {
 }
 
 func main() {
-	err := InitDB()
+	err := main.InitDB()
 	if err != nil {
 		fmt.Println(err)
 		return

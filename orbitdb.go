@@ -30,7 +30,7 @@ func InitDB() error {
 	options := orbitdb.CreateDBOptions{}
 	ac := &accesscontroller.CreateAccessControllerOptions{Access: map[string][]string{"write": {"*"}}}
 	options.AccessController = ac
-	store, err := db.Docs(ctx, "", &options)
+	store, err := db.Docs(ctx, "kawa", &options)
 	if err != nil {
 		return err
 	}
