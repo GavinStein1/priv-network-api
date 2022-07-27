@@ -4,6 +4,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os/exec"
+	"bytes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,14 +22,27 @@ var temp = []Temp{
 }
 
 func main() {
-	fmt.Println("Starting Router Module")
-
 	router := gin.Default()
 	router.GET("/pinned", getPins)
-
+	// router.Run("localhost:8080")
 	router.Run("164.92.115.9:8081")
+	fmt.Println("Started Router Module")
 }
 
 func getPins(c *gin.Context) {
+	getPinsCmd := exec.Command("ipfs pin ls")
+	var out bytes.Buffer
+    getPinsCmd.Stdout = &out
+
+	err := getPinsCmd.Run()
+
+    if err != nil {
+        fmt.Println(err)
+    }
+
+	fmt.Println(out)
+
 	c.IndentedJSON(http.StatusOK, temp)
 }
+
+// func postSong()
