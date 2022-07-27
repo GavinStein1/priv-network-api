@@ -25,7 +25,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/pinned", getPins)
 
-	router.Run("localhost:8080")
+	router.Run("164.92.115.9:8081")
 }
 
 func getPins(c *gin.Context) {
